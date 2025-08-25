@@ -1,0 +1,195 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="/static/navbar.css">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+     <nav class="navbar">
+   <a href="/index"> <div class="logo">Expense tracker</div></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/index">Home</a></li>
+      <li><a href="/login">Login</a></li>
+      <li><a href="/">Signup</a></li>
+    </ul>
+    <div class="menu-icon" onclick="toggleMenu()">☰</div>
+  </nav>
+<br>
+    <div class="container">
+ 
+ 
+
+        <!-- Header -->
+        <div class="header">
+            <h1>💰 Expense Tracker</h1>
+            <p>Take control of your finances</p>
+        </div>
+
+        <!-- Dashboard -->
+        <div class="dashboard">
+            <div class="stat-card income">
+                <h3>Total Income</h3>
+                <div class="amount">$2,450.00</div>
+                <p>This month</p>
+            </div>
+            <div class="stat-card expenses">
+                <h3>Total Expenses</h3>
+                <div class="amount">$1,230.50</div>
+                <p>This month</p>
+            </div>
+            <div class="stat-card balance">
+                <h3>Balance</h3>
+                <div class="amount">$1,219.50</div>
+                <p>Available</p>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Add Transaction Form -->
+            <div class="add-transaction">
+                <h2>Add New Transaction</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="text" id="description" placeholder="Enter description" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="amount">Amount</label>
+                            <input type="number" id="amount" placeholder="0.00" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="type">Type</label>
+                            <select id="type" required>
+                                <option value="">Select type</option>
+                                <option value="income">Income</option>
+                                <option value="expense">Expense</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <select id="category" required>
+                                <option value="">Select category</option>
+                                <option value="food">Food & Dining</option>
+                                <option value="transport">Transportation</option>
+                                <option value="shopping">Shopping</option>
+                                <option value="entertainment">Entertainment</option>
+                                <option value="bills">Bills & Utilities</option>
+                                <option value="healthcare">Healthcare</option>
+                                <option value="salary">Salary</option>
+                                <option value="freelance">Freelance</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="date">Date</label>
+                            <input type="date" id="date" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="notes">Notes (Optional)</label>
+                        <textarea id="notes" placeholder="Add any additional notes..." rows="3"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn">Add Transaction</button>
+                </form>
+            </div>
+
+            <!-- Transactions List -->
+            <div class="transactions-section">
+                <div class="transactions-header">
+                    <h2>Recent Transactions</h2>
+                    <div class="filter-tabs">
+                        <div class="filter-tab active">All</div>
+                        <div class="filter-tab">Income</div>
+                        <div class="filter-tab">Expenses</div>
+                    </div>
+                </div>
+
+                <div class="transaction-list">
+                    <!-- Sample transactions for demonstration -->
+                    <div class="transaction-item income">
+                        <div class="transaction-details">
+                            <h4>Freelance Project</h4>
+                            <p>Aug 20, 2025 • Freelance</p>
+                        </div>
+                        <div class="transaction-amount income">+$1,500.00</div>
+                    </div>
+
+                    <div class="transaction-item expense">
+                        <div class="transaction-details">
+                            <h4>Grocery Shopping</h4>
+                            <p>Aug 19, 2025 • Food & Dining</p>
+                        </div>
+                        <div class="transaction-amount expense">-$85.50</div>
+                    </div>
+
+                    <div class="transaction-item income">
+                        <div class="transaction-details">
+                            <h4>Monthly Salary</h4>
+                            <p>Aug 15, 2025 • Salary</p>
+                        </div>
+                        <div class="transaction-amount income">+$3,200.00</div>
+                    </div>
+
+                    <div class="transaction-item expense">
+                        <div class="transaction-details">
+                            <h4>Electric Bill</h4>
+                            <p>Aug 14, 2025 • Bills & Utilities</p>
+                        </div>
+                        <div class="transaction-amount expense">-$120.00</div>
+                    </div>
+
+                    <div class="transaction-item expense">
+                        <div class="transaction-details">
+                            <h4>Coffee Shop</h4>
+                            <p>Aug 13, 2025 • Food & Dining</p>
+                        </div>
+                        <div class="transaction-amount expense">-$4.50</div>
+                    </div>
+
+                    <div class="transaction-item expense">
+                        <div class="transaction-details">
+                            <h4>Uber Ride</h4>
+                            <p>Aug 12, 2025 • Transportation</p>
+                        </div>
+                        <div class="transaction-amount expense">-$15.75</div>
+                    </div>
+
+                    <div class="transaction-item income">
+                        <div class="transaction-details">
+                            <h4>Side Hustle</h4>
+                            <p>Aug 10, 2025 • Other</p>
+                        </div>
+                        <div class="transaction-amount income">+$200.00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Copyright Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 Expense Tracker. All rights reserved.</p>
+      
+            </div>
+        </footer>
+    </div>
+      <script>
+    function toggleMenu() {
+      document.getElementById("navLinks").classList.toggle("active");
+    }
+  </script>
+      
+</body>
+</html>
