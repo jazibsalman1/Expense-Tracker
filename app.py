@@ -46,16 +46,19 @@ async def signup_page(request: Request):
 @app.get("/login", response_class=HTMLResponse)
 async def login_page(request: Request):
     return templates.TemplateResponse("login.html", {"request": request})
+    # ✅ income page
+@app.get("/income", response_class=HTMLResponse)
+async def income_page(request: Request):
+    return templates.TemplateResponse("income.html", {"request": request})
 
-# ✅ Home page (protected)
+   
 @app.get("/index", response_class=HTMLResponse)
-async def home_page(request: Request):
-    # Check if user is logged in
+async def index_page(request: Request):
+    #check if user has entered income
     if not request.session.get("user"):
         return RedirectResponse(url="/login", status_code=303)
-
-    return templates.TemplateResponse("index.html", {"request": request})
-
+    else :
+        return templates.TemplateResponse("index.html", {"request": request})    
 # ✅ Signup form
 @app.post("/signup")
 async def signup(
@@ -107,7 +110,7 @@ async def login(
     if user:
         # Save user session
         request.session["user"] = {"id": user[0], "email": user[3]}
-        return RedirectResponse(url="/index", status_code=303)
+        return RedirectResponse(url="/income", status_code=303)
 
     return templates.TemplateResponse("login.html", {
         "request": request,
@@ -119,6 +122,10 @@ async def login(
 async def logout(request: Request):
     request.session.clear()  # remove session
     return RedirectResponse(url="/login", status_code=303)
+@app.post("/incomeForm")
+async def to_show_income(request:Request,income:int=Form(...)):
+    return templates.TemplateResponse ("index.html", {"request": request,"income2":income   })    
+
 
 # Run the app
 if __name__ == "__main__":

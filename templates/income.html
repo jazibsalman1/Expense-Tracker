@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Income Information</title>
+    <link rel="stylesheet" href="/static/incomes.css">
+
+</head>
+<body>
+    <div class="background-animation"></div>
+    
+    <div class="income-container">
+        <div class="logo">
+            <h1>💰 Income</h1>
+            <p>Enter your monthly income</p>
+        </div>
+
+        <form action="incomeForm" method="post" id="incomeForm">
+            <div class="form-group">
+                <label for="income">Monthly Income</label>
+                <div class="income-input-wrapper">
+                    <span class="currency-symbol">$</span>
+                    <input type="number" id="income" name="income" placeholder="Enter your monthly income" required>
+                </div>
+            </div>
+
+         
+            <button type="submit" class="save-btn">Save Income</button>
+        </form>
+       
+    </div>
+
+  
+</body>
+</html>

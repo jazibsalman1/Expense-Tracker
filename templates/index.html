@@ -33,17 +33,17 @@
         <div class="dashboard">
             <div class="stat-card income">
                 <h3>Total Income</h3>
-                <div class="amount">$2,450.00</div>
+                <div class="amount">{{ income2 }}</div>
                 <p>This month</p>
             </div>
             <div class="stat-card expenses">
                 <h3>Total Expenses</h3>
-                <div class="amount">$1,230.50</div>
+                <div class="amount"></div>
                 <p>This month</p>
             </div>
             <div class="stat-card balance">
                 <h3>Balance</h3>
-                <div class="amount">$1,219.50</div>
+                <div class="amount"></div>
                 <p>Available</p>
             </div>
         </div>
@@ -64,36 +64,12 @@
                             <label for="amount">Amount</label>
                             <input type="number" id="amount" placeholder="0.00" step="0.01" required>
                         </div>
-                        <div class="form-group">
-                            <label for="type">Type</label>
-                            <select id="type" required>
-                                <option value="">Select type</option>
-                                <option value="income">Income</option>
-                                <option value="expense">Expense</option>
-                            </select>
-                        </div>
+                    
                     </div>
 
                     <div class="form-row">
-                        <div class="form-group">
-                            <label for="category">Category</label>
-                            <select id="category" required>
-                                <option value="">Select category</option>
-                                <option value="food">Food & Dining</option>
-                                <option value="transport">Transportation</option>
-                                <option value="shopping">Shopping</option>
-                                <option value="entertainment">Entertainment</option>
-                                <option value="bills">Bills & Utilities</option>
-                                <option value="healthcare">Healthcare</option>
-                                <option value="salary">Salary</option>
-                                <option value="freelance">Freelance</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="date">Date</label>
-                            <input type="date" id="date" required>
-                        </div>
+                        
+                
                     </div>
 
                     <div class="form-group">
@@ -105,16 +81,6 @@
                 </form>
             </div>
 
-            <!-- Transactions List -->
-            <div class="transactions-section">
-                <div class="transactions-header">
-                    <h2>Recent Transactions</h2>
-                    <div class="filter-tabs">
-                        <div class="filter-tab active">All</div>
-                        <div class="filter-tab">Income</div>
-                        <div class="filter-tab">Expenses</div>
-                    </div>
-                </div>
 
                 <div class="transaction-list">
                     <!-- Sample transactions for demonstration -->
