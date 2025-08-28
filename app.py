@@ -7,6 +7,7 @@ from starlette.middleware.sessions import SessionMiddleware
 import sqlite3
 import hashlib
 import uvicorn
+from datetime import datetime
 
 app = FastAPI()
 
@@ -46,19 +47,40 @@ async def signup_page(request: Request):
 @app.get("/login", response_class=HTMLResponse)
 async def login_page(request: Request):
     return templates.TemplateResponse("login.html", {"request": request})
-    # ✅ income page
+
+# ✅ Income page (after login)
 @app.get("/income", response_class=HTMLResponse)
 async def income_page(request: Request):
-    return templates.TemplateResponse("income.html", {"request": request})
-
-   
-@app.get("/index", response_class=HTMLResponse)
-async def index_page(request: Request):
-    #check if user has entered income
     if not request.session.get("user"):
         return RedirectResponse(url="/login", status_code=303)
-    else :
-        return templates.TemplateResponse("index.html", {"request": request})    
+    return templates.TemplateResponse("income.html", {"request": request})
+
+# ✅ Dashboard page
+@app.get("/index", response_class=HTMLResponse)
+async def index_page(request: Request):
+    if not request.session.get("user"):
+        return RedirectResponse(url="/login", status_code=303)
+    
+    # Initialize transactions list if it doesn't exist
+    if "transactions" not in request.session:
+        request.session["transactions"] = []
+    
+    # Calculate total expenses from transactions
+    transactions = request.session.get("transactions", [])
+    total_expenses = sum(transaction["amount"] for transaction in transactions)
+    
+    # Calculate balance
+    income = request.session.get("income", 0)
+    balance = income - total_expenses
+    
+    return templates.TemplateResponse("index.html", {
+        "request": request,
+        "income2": income,
+        "expenses2": total_expenses,
+        "balance": balance,
+        "transactions": transactions
+    })
+
 # ✅ Signup form
 @app.post("/signup")
 async def signup(
@@ -108,8 +130,9 @@ async def login(
     user = cursor.fetchone()
 
     if user:
-        # Save user session
+        # Save user session and initialize empty transactions list
         request.session["user"] = {"id": user[0], "email": user[3]}
+        request.session["transactions"] = []
         return RedirectResponse(url="/income", status_code=303)
 
     return templates.TemplateResponse("login.html", {
@@ -117,15 +140,45 @@ async def login(
         "error": "Invalid email or password!"
     })
 
+# ✅ Income form
+@app.post("/incomeForm")
+async def to_show_income(request: Request, income: int = Form(...)):
+    request.session["income"] = income
+    return RedirectResponse(url="/index", status_code=303)
+
+# ✅ Expense form - Updated to store multiple transactions
+@app.post("/expenseform")
+async def to_show_expense(
+    request: Request, 
+    expamount: float = Form(...), 
+    description: str = Form(...), 
+    notes: str = Form(...)
+):
+    # Initialize transactions list if it doesn't exist
+    if "transactions" not in request.session:
+        request.session["transactions"] = []
+    
+    # Create new transaction
+    new_transaction = {
+        "description": description,
+        "amount": expamount,
+        "notes": notes,
+        "date": datetime.now().strftime("%Y-%m-%d %H:%M"),
+        "type": "expense"
+    }
+    
+    # Add to transactions list
+    transactions = request.session["transactions"]
+    transactions.append(new_transaction)
+    request.session["transactions"] = transactions
+    
+    return RedirectResponse(url="/index", status_code=303)
+
 # ✅ Logout
 @app.get("/logout")
 async def logout(request: Request):
     request.session.clear()  # remove session
     return RedirectResponse(url="/login", status_code=303)
-@app.post("/incomeForm")
-async def to_show_income(request:Request,income:int=Form(...)):
-    return templates.TemplateResponse ("index.html", {"request": request,"income2":income   })    
-
 
 # Run the app
 if __name__ == "__main__":
