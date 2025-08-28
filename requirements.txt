@@ -2,4 +2,4 @@ fastapi
 uvicorn
 jinja2
 python-multipart
-sqlite3-binary
+aiofiles
